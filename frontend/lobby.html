@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qosyl — lobby mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="lobby.css">
+</head>
+<body>
+
+<!-- Demo chrome only. Not part of the design. -->
+<div class="demo">
+  <button data-demo="join">Join screen</button>
+  <button data-demo="lobby">Lobby</button>
+  <button data-demo="error">Bad code</button>
+  <button data-demo="drop">Lose connection</button>
+  <button data-demo="host">Host / player</button>
+</div>
+
+<div class="app">
+
+<!-- ============================================================
+     SCREEN 1 — Join
+     Dynamic: nothing except the code field and the error message.
+     ============================================================ -->
+<section class="screen" id="screen-join">
+
+  <div class="topbar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="9" cy="10" r="7" fill="var(--c-p1)"/>
+        <circle cx="17" cy="10" r="7" fill="var(--c-p3)" opacity=".9"/>
+        <circle cx="13" cy="17" r="7" fill="var(--c-p2)" opacity=".85"/>
+      </svg>
+      <span class="brand__name">Qosyl</span>
+    </div>
+  </div>
+
+  <h1 class="headline">One phone each.<br>One room.</h1>
+  <p class="subhead">Someone starts a room and reads out the code. Everyone else types it in.</p>
+
+  <label class="visually-hidden" for="code-1">Room code</label>
+  <div class="code-entry" id="code-entry">
+    <input class="code-entry__slot" id="code-1" maxlength="1" inputmode="text" autocomplete="off" value="K">
+    <input class="code-entry__slot" maxlength="1" inputmode="text" autocomplete="off" value="R">
+    <input class="code-entry__slot" maxlength="1" inputmode="text" autocomplete="off" value="T">
+    <input class="code-entry__slot" maxlength="1" inputmode="text" autocomplete="off" value="9">
+  </div>
+
+  <!-- Error copy names what happened and what to do. -->
+  <p class="form-error" id="code-error" hidden role="alert">
+    <span aria-hidden="true">✕</span>
+    <span>No room with that code. Check it with whoever started the game.</span>
+  </p>
+
+  <button class="btn btn--primary">Join room</button>
+
+  <p class="divider">or</p>
+
+  <button class="btn btn--ghost">Start a new room</button>
+</section>
+
+
+<!-- ============================================================
+     SCREEN 2 — Lobby
+     Dynamic: room code, player list, ready states, host controls,
+     connection state. Everything else is static chrome.
+     ============================================================ -->
+<section class="screen" id="screen-lobby" hidden>
+
+  <div class="topbar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="9" cy="10" r="7" fill="var(--c-p1)"/>
+        <circle cx="17" cy="10" r="7" fill="var(--c-p3)" opacity=".9"/>
+        <circle cx="13" cy="17" r="7" fill="var(--c-p2)" opacity=".85"/>
+      </svg>
+      <span class="brand__name">Qosyl</span>
+    </div>
+
+    <p class="conn" id="conn">
+      <span class="conn__dot" aria-hidden="true"></span>
+      <span id="conn-text">Connected</span>
+    </p>
+  </div>
+
+  <div class="room-code">
+    <p class="room-code__label">Read this out to the room</p>
+    <p class="room-code__value">
+      <span class="room-code__char">K</span>
+      <span class="room-code__char">R</span>
+      <span class="room-code__char">T</span>
+      <span class="room-code__char">9</span>
+    </p>
+    <button class="room-code__copy">Copy link instead</button>
+  </div>
+
+  <div class="roster-head">
+    <h2 class="section-heading">Who's in</h2>
+    <span class="roster-head__count">3 of 6 ready</span>
+  </div>
+
+  <!-- --player-color comes from the server-assigned player index. -->
+  <ul class="roster">
+    <li class="player player--ready" style="--player-color: var(--c-p1)">
+      <span class="player__avatar" aria-hidden="true">A</span>
+      <span class="player__body">
+        <span class="player__name">Aizhan</span>
+        <span class="player__state">Ready · host</span>
+      </span>
+    </li>
+
+    <li class="player player--ready" style="--player-color: var(--c-p2)">
+      <span class="player__avatar" aria-hidden="true">D</span>
+      <span class="player__body">
+        <span class="player__name">Daniil</span>
+        <span class="player__state">Ready · you</span>
+      </span>
+    </li>
+
+    <li class="player player--ready" style="--player-color: var(--c-p3)">
+      <span class="player__avatar" aria-hidden="true">M</span>
+      <span class="player__body">
+        <span class="player__name">Miras</span>
+        <span class="player__state">Ready</span>
+      </span>
+    </li>
+
+    <li class="player" style="--player-color: var(--c-p4)">
+      <span class="player__avatar" aria-hidden="true">T</span>
+      <span class="player__body">
+        <span class="player__name">Tomiris</span>
+        <span class="player__state">Still deciding</span>
+      </span>
+    </li>
+
+    <li class="player player--empty">Waiting for players</li>
+    <li class="player player--empty">Waiting for players</li>
+  </ul>
+</section>
+
+</div>
+
+<!-- Sticky action. Swaps by role: host starts, everyone else readies up. -->
+<div class="bar" id="bar" hidden>
+  <button class="btn btn--primary" id="bar-btn">Start game</button>
+  <p class="bar__hint" id="bar-hint">Tomiris hasn't readied up yet</p>
+</div>
+
+<script>
+// Demo wiring only — delete all of this. It exists so you can see the states.
+const el = id => document.getElementById(id);
+let isHost = true;
+
+const show = which => {
+  el('screen-join').hidden = which !== 'join';
+  el('screen-lobby').hidden = which !== 'lobby';
+  el('bar').hidden = which !== 'lobby';
+};
+
+const setRole = host => {
+  isHost = host;
+  el('bar-btn').textContent = host ? 'Start game' : "I'm ready";
+  el('bar-btn').disabled = host;
+  el('bar-hint').textContent = host
+    ? "Tomiris hasn't readied up yet"
+    : 'Aizhan starts the game when everyone is ready';
+};
+
+document.querySelector('.demo').addEventListener('click', e => {
+  const action = e.target.dataset.demo;
+  if (!action) return;
+
+  if (action === 'join' || action === 'lobby') show(action);
+
+  if (action === 'error') {
+    show('join');
+    el('code-entry').classList.toggle('code-entry--invalid');
+    el('code-error').hidden = !el('code-error').hidden;
+  }
+
+  if (action === 'drop') {
+    show('lobby');
+    const lost = el('conn').classList.toggle('conn--lost');
+    el('conn-text').textContent = lost ? 'Reconnecting' : 'Connected';
+  }
+
+  if (action === 'host') {
+    show('lobby');
+    setRole(!isHost);
+  }
+});
+
+setRole(true);
+show('join');
+</script>
+</body>
+</html>
