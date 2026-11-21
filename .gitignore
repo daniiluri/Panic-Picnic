@@ -10,6 +10,7 @@ __pycache__/
 venv/
 
 # Env
+.aws/
 .env
 .env.*
 !.env.example
@@ -18,3 +19,10 @@ venv/
 .DS_Store
 .idea/
 *.swp
+
+# Local play and verification
+.certs/
+.pytest_cache/
+.ruff_cache/
+test-results/
+playwright-report/

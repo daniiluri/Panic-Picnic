@@ -1,0 +1,322 @@
+.hero {
+  background: var(--butter);
+}
+.hero::after {
+  content: '';
+  display: block;
+  height: 14px;
+  background-color: light-dark(#f3f2df, #34415a);
+  background-image: var(--gingham);
+  background-size: 18px 18px;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 0.89fr 1.11fr;
+  align-items: center;
+  gap: clamp(20px, 3.4vw, 58px);
+  padding-block: clamp(26px, 2.4vw, 38px);
+}
+.hero-copy {
+  padding-block: 6px;
+}
+.hero h1 {
+  font-size: clamp(3.45rem, 5.9vw, 5.45rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.hero-copy > p {
+  max-width: 38ch;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+.picnic-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 0;
+  margin: 18px 0 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.picnic-facts li, .card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.picnic-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 390px;
+  object-fit: contain;
+}
+.shelf {
+  padding-block: clamp(32px, 3.2vw, 50px) clamp(38px, 4vw, 60px);
+  scroll-margin-top: 8px;
+}
+.shelf-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-bottom: 20px;
+}
+.shelf-heading h2 {
+  font-size: clamp(1.85rem, 2.8vw, 2.6rem);
+}
+.shelf-heading p, .card-body > p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2.3vw, 30px);
+}
+.game-card {
+  position: relative;
+  min-width: 0;
+  border-radius: 7px;
+}
+.card-art {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2.42;
+  border: 1px solid var(--edge);
+  border-bottom: 5px solid var(--edge);
+  border-radius: 5px 12px 9px 5px;
+  background: var(--tint);
+  box-shadow: 0 3px 4px #3e4c2b12;
+}
+.card-art::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10px;
+  border-right: 1px solid #ffffef70;
+  background: linear-gradient(90deg, #fff4, #17281122 85%, #17281155);
+}
+.card-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.79) contrast(0.94);
+}
+.game-card.unavailable .card-art img {
+  filter: saturate(0.5) contrast(0.9);
+}
+.game-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-body {
+  padding: 14px 3px 0;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.card-meta span {
+  gap: 5px;
+}
+.card-meta span:first-child {
+  padding: 3px 9px;
+  border-radius: 6px;
+  color: var(--accent);
+  background: var(--tint);
+}
+.card-body h3 {
+  margin: 0 0 4px;
+  font-size: clamp(1.4rem, 2.1vw, 1.8rem);
+}
+.game-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+  letter-spacing: inherit;
+}
+.game-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+}
+.game-link span {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--leaf);
+}
+.game-link:focus-visible {
+  outline: none;
+}
+.game-link:focus-visible::after {
+  outline: 3px solid var(--focus);
+  outline-offset: 5px;
+}
+.game-card:is(:hover, :focus-within) .game-link span {
+  background: var(--leaf);
+  border-color: var(--leaf);
+  color: var(--on-leaf);
+}
+
+@media (min-width: 961px) and (max-height: 820px) {
+  .hero-inner {
+    padding-block: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 5vw, 4.5rem);
+  }
+  .picnic-scene {
+    max-height: 328px;
+  }
+  .shelf {
+    padding-top: 32px;
+  }
+}
+@media (max-width: 960px) {
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hero-inner {
+    grid-template-columns: 1.06fr 0.94fr;
+    gap: 12px;
+  }
+  .hero-actions .btn {
+    padding-inline: 12px;
+    font-size: 0.94rem;
+  }
+}
+@media (max-width: 700px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 16px;
+    padding-block: 22px 26px;
+    text-align: center;
+  }
+  .picnic-scene {
+    grid-row: 1;
+    width: min(68%, 310px);
+  }
+  .hero-copy {
+    padding: 0;
+  }
+  .hero h1 {
+    font-size: clamp(2.15rem, 7.6vw, 3.4rem);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .hero h1 br {
+    display: none;
+  }
+  .hero-copy > p {
+    margin: 10px auto 0;
+  }
+  .hero-actions, .picnic-facts {
+    justify-content: center;
+  }
+  .hero-actions {
+    margin-top: 18px;
+  }
+  .picnic-facts {
+    margin-top: 13px;
+  }
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .game-card {
+    display: grid;
+    grid-template-columns: minmax(100px, 33%) 1fr;
+    align-items: center;
+    gap: clamp(12px, 3vw, 20px);
+    padding-block: 16px;
+  }
+  .game-card + .game-card {
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+  }
+  .card-art {
+    aspect-ratio: 1.6;
+  }
+  .card-body {
+    padding: 0;
+  }
+  .card-body h3 {
+    margin-bottom: 3px;
+  }
+  .card-meta {
+    margin-top: 6px;
+  }
+  .card-body > p {
+    font-size: 0.88rem;
+  }
+  .shelf {
+    padding-block: 27px;
+  }
+  .shelf-heading {
+    display: block;
+    margin-bottom: 3px;
+  }
+  .shelf-heading p {
+    margin-top: 3px;
+  }
+}
+@media (max-width: 400px) {
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .hero-actions .btn {
+    font-size: 0.92rem;
+    padding-inline: 5px;
+    gap: 5px;
+  }
+  .game-card {
+    grid-template-columns: 32% 1fr;
+    gap: 12px;
+  }
+  .card-art {
+    aspect-ratio: 1.4;
+  }
+  .card-meta {
+    gap: 3px 7px;
+    font-size: 0.73rem;
+  }
+  .card-meta span:first-child {
+    padding-inline: 5px;
+  }
+}

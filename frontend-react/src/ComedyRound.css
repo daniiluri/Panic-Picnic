@@ -1,0 +1,297 @@
+.club-heading {
+  margin: 4px 0 15px;
+}
+.club-heading h1 {
+  margin-bottom: 6px;
+}
+.club-heading p,
+.comedy-controls p,
+.stage-mic small {
+  color: var(--muted);
+}
+.club-heading p {
+  overflow-wrap: anywhere;
+}
+.comedy-theater {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 2.2;
+  border-radius: 13px;
+  background: #2a4136 url('/art/comedy.webp') center / 100% 100% no-repeat;
+}
+:root[data-theme='dark'] .comedy-theater::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 38%, transparent 18%, #20263f70 100%);
+}
+.cast-sprite {
+  position: absolute;
+  aspect-ratio: 3 / 4;
+  background: url('/art/stage-cast.webp') var(--portrait) 0 / 600% 200% no-repeat;
+}
+.comedian {
+  bottom: 26%;
+  left: 50%;
+  height: 48%;
+  translate: -50% 0;
+  filter: drop-shadow(2px 3px 1px #4c2b2266);
+}
+.club-seat {
+  position: absolute;
+  bottom: 1%;
+  left: var(--seat);
+  width: 12%;
+  height: 26%;
+  translate: -50% 0;
+}
+.spectator {
+  bottom: 7%;
+  left: 50%;
+  height: 100%;
+  translate: -50% 0;
+  background-position-y: 100%;
+}
+.chair-back {
+  position: absolute;
+  inset: 62% 0 6%;
+  border: 2px solid #462d28;
+  border-radius: 27% 27% 14% 14%;
+  background: #8a4436;
+  box-shadow:
+    inset 0 3px 0 #bb7956,
+    0 2px 0 #30251c;
+}
+.chair-back::before,
+.chair-back::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  height: 28%;
+  width: 7%;
+  background: #4d3224;
+}
+.chair-back::before {
+  left: 9%;
+}
+.chair-back::after {
+  right: 9%;
+}
+.flying-tomato,
+.rising-heart {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  left: var(--seat);
+  top: 81%;
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  line-height: 1;
+  opacity: 0;
+}
+.flying-tomato {
+  animation: stage-throw 840ms both;
+}
+.volley-tomato {
+  animation: stage-throw 780ms calc(280ms + var(--delay)) 3 both;
+}
+.joins-volley .spectator {
+  transform-origin: bottom center;
+  animation: seat-throw 780ms calc(280ms + var(--delay)) 3;
+}
+.throwing-arm {
+  position: absolute;
+  left: 67%;
+  bottom: 43%;
+  width: 7%;
+  height: 30%;
+  border-radius: 40%;
+  background: #302c33;
+  transform-origin: bottom center;
+  opacity: 0;
+  animation: toss-arm 780ms;
+}
+.throwing-arm::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -40%;
+  width: 180%;
+  height: 47%;
+  background: #fff0c7;
+  border-radius: 50%;
+}
+.joins-volley .throwing-arm { animation: toss-arm 780ms calc(280ms + var(--delay)) 3; }
+@keyframes toss-arm {
+  0%, 65%, 100% { transform: rotate(105deg); opacity: 0; }
+  10% { transform: rotate(92deg); opacity: 1; }
+  24% { transform: rotate(-24deg); opacity: 1; }
+}
+.rising-heart {
+  color: #f397a0;
+  text-shadow: 0 1px 2px #3c292a;
+  animation: cheer 1s both;
+}
+@keyframes stage-throw {
+  0% {
+    left: var(--seat);
+    top: 80%;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  48% {
+    left: var(--arc);
+    top: 26%;
+    transform: translate(-50%, -50%) rotate(140deg);
+    animation-timing-function: ease-in;
+  }
+  88% {
+    left: 50%;
+    top: 51%;
+    transform: translate(-50%, -50%) rotate(250deg);
+    opacity: 1;
+  }
+  100% {
+    left: 50%;
+    top: 53%;
+    transform: translate(-50%, -50%) scale(1.4, 0.55);
+    opacity: 0;
+  }
+}
+@keyframes seat-throw {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  10% {
+    transform: rotate(-13deg);
+  }
+  30% {
+    transform: rotate(9deg) translateY(-7%);
+  }
+}
+@keyframes cheer {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    top: 36%;
+    opacity: 0;
+  }
+}
+.volley-sign {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  translate: -50% 0;
+  padding: 3px 12px;
+  border-radius: 6px;
+  background: var(--paper);
+  color: light-dark(#8b3327, var(--accent));
+  font-weight: 700;
+  white-space: nowrap;
+}
+.stage-joke {
+  margin: 12px 0;
+  padding: 14px 18px;
+  border-inline-start: 4px solid var(--edge);
+  background: var(--butter);
+  color: var(--ink);
+  font-size: 1.14rem;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.reaction-score,
+.reaction-score span,
+.crowd-buttons,
+.stage-mic {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.reaction-score {
+  gap: 8px 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.89rem;
+}
+.reaction-score i {
+  font-style: normal;
+}
+.reaction-score .volley-status {
+  position: absolute;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.comedy-controls {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.comedy-controls > .inline-link {
+  justify-self: start;
+}
+.joke-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 6px 10px;
+}
+.joke-form label {
+  grid-column: 1 / -1;
+  font-weight: 700;
+}
+.joke-form textarea {
+  font: inherit;
+  min-width: 0;
+  resize: vertical;
+  padding: 9px;
+  border: 1px solid light-dark(#92a18a, #71828d);
+  border-radius: 9px;
+  background: light-dark(var(--paper), var(--canvas));
+  color: var(--ink);
+}
+.joke-form textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.tomato-btn {
+  color: light-dark(#77362c, var(--accent));
+  background: var(--tint);
+  border-color: var(--edge);
+}
+:root[data-theme='dark'] .tomato-btn:enabled {
+  border-color: var(--edge);
+}
+.tomato-btn:enabled:hover {
+  background: light-dark(#eec7b9, #624443);
+}
+.crowd-buttons [aria-pressed='true']:disabled {
+  border: 2px solid var(--leaf);
+  color: var(--ink);
+}
+@media (max-width: 520px) {
+  .comedy-theater {
+    aspect-ratio: 1.75;
+  }
+  .joke-form {
+    grid-template-columns: 1fr;
+  }
+  .joke-form button {
+    justify-self: start;
+  }
+  .crowd-buttons .btn {
+    padding-inline: 11px;
+  }
+}

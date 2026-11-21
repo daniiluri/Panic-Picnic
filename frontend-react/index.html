@@ -2,12 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend-react</title>
+    <meta name="theme-color" content="#fffef8" />
+    <script>
+      // Apply the saved appearance before the first paint, including on room invites.
+      const systemScheme = matchMedia('(prefers-color-scheme: dark)')
+      const themeColor = document.querySelector('meta[name="theme-color"]')
+      function applyPicnicTheme() {
+        const saved = localStorage.getItem('picnic-theme')
+        const dark = saved === 'dark' || (saved !== 'light' && systemScheme.matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+        themeColor.content = dark ? '#263348' : '#fffef8'
+      }
+      applyPicnicTheme()
+      systemScheme.addEventListener('change', applyPicnicTheme)
+      addEventListener('storage', (event) => {
+        if (event.key === 'picnic-theme' || event.key === null) applyPicnicTheme()
+      })
+      document.addEventListener('picnic-theme-toggle', () => {
+        localStorage.setItem('picnic-theme', document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')
+        applyPicnicTheme()
+      })
+
+      // Keep game connections local, including the room WebSocket.
+      const localConnections = document.createElement('meta')
+      localConnections.httpEquiv = 'Content-Security-Policy'
+      localConnections.content = "connect-src 'self' blob: " + location.origin.replace(/^http/, 'ws')
+      document.head.append(localConnections)
+    </script>
+    <meta name="description" content="A local multiplayer cartoon arcade. Bring your friends, pick a lineup, and play Panic Picnic together." />
+    <link rel="icon" href="/picnic-icon.png" />
+    <title>Panic Picnic · Party Arcade</title>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body>
 </html>
